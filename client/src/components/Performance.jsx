@@ -28,6 +28,9 @@ function Performance({ production, date }) {
     });
     return cast;
   };
+  const stripHtmlTag = (text) => {
+    return text.replace(/(<([^>]+)>)/gi, "");
+  };
 
   useEffect(() => {
     fetchEventDetails(production)
@@ -35,14 +38,19 @@ function Performance({ production, date }) {
         const productionData = data.data;
         setPerformanceData({
           title: productionData.attributes.title,
-          shortDescription: productionData.attributes.shortDescription,
+          shortDescription: stripHtmlTag(
+            productionData.attributes.shortDescription
+          ),
           creatives: getCreatives(data),
           cast: getCast(data),
         });
-        console.log(data);
       })
       .catch((error) => console.log(error));
   }, [production]);
+
+  const castElementList = performanceData.cast?.map((castMember) => (
+    <li>{castMember}</li>
+  ));
 
   return (
     <div id={production}>
@@ -50,10 +58,9 @@ function Performance({ production, date }) {
       <p>Date: {date}</p>
       <h3>{performanceData.shortDescription}</h3>
       <h2>Creatives</h2>
-      {/* <ul>{performanceData.creatives.name}</ul> */}
       <Creatives creativesArray={performanceData.creatives} />
       <h2>Cast</h2>
-      <ul>{performanceData.cast}</ul>
+      <ul>{castElementList}</ul>
     </div>
   );
 }

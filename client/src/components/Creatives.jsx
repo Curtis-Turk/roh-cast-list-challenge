@@ -1,6 +1,5 @@
 function Creatives({ creativesArray }) {
   const creativeElementList = creativesArray?.map((creative) => {
-    console.log(creative);
     return (
       <li>
         <div>{creative.name}</div>
