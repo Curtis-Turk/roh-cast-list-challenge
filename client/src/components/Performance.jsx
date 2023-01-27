@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import fetchEventDetails from "../api/fetchEventDetails";
+import Cast from "./Cast";
 import Creatives from "./Creatives";
 
 function Performance({ production, date }) {
@@ -28,6 +29,7 @@ function Performance({ production, date }) {
     });
     return cast;
   };
+
   const stripHtmlTag = (text) => {
     return text.replace(/(<([^>]+)>)/gi, "");
   };
@@ -36,24 +38,20 @@ function Performance({ production, date }) {
     fetchEventDetails(production)
       .then((data) => {
         const productionData = data.data;
-        setPerformanceData({
+
+        const performanceObject = {
           title: productionData.attributes.title,
           shortDescription: stripHtmlTag(
             productionData.attributes.shortDescription
           ),
           creatives: getCreatives(data),
           cast: getCast(data),
-        });
-        console.log(data);
+        };
+
+        setPerformanceData(performanceObject);
       })
       .catch((error) => console.log(error));
   }, [production]);
-
-  const castElementList = performanceData.cast?.map((castMember) => (
-    <li key={castMember}>
-      <div>{castMember}</div>
-    </li>
-  ));
 
   return (
     <div id={production}>
@@ -63,7 +61,7 @@ function Performance({ production, date }) {
       <h2>Creatives</h2>
       <Creatives creativesArray={performanceData.creatives} />
       <h2>Cast</h2>
-      <ul>{castElementList}</ul>
+      <Cast castArray={performanceData.cast} />
     </div>
   );
 }
