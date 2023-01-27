@@ -1,14 +1,20 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import fetchEventDetails from "../api/fetchEventDetails";
 
 function Performance({ production, date }) {
-  const [performanceData, setPerformanceData] = useState(null);
+  const [performanceData, setPerformanceData] = useState({});
 
-  fetchEventDetails(production)
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
+  useEffect(() => {
+    fetchEventDetails(production)
+      .then((data) => {
+        setPerformanceData({ title: data.data.attributes.title });
+        console.log(data.data.attributes.title);
+      })
+      .catch((error) => console.log(error));
+  }, [production]);
 
-  return <div>Performance</div>;
+  return <h1>{performanceData.title}</h1>;
 }
 
 export default Performance;
