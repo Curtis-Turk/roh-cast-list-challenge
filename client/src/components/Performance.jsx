@@ -8,13 +8,22 @@ function Performance({ production, date }) {
   useEffect(() => {
     fetchEventDetails(production)
       .then((data) => {
-        setPerformanceData({ title: data.data.attributes.title });
-        console.log(data.data.attributes.title);
+        const attributes = data.data.attributes;
+        setPerformanceData({
+          title: attributes.title,
+          shortDescription: attributes.shortDescription,
+        });
+        console.log(data.data.attributes);
       })
       .catch((error) => console.log(error));
   }, [production]);
 
-  return <h1>{performanceData.title}</h1>;
+  return (
+    <div id={production}>
+      <h1>{performanceData.title}</h1>
+      {performanceData.shortDescription}
+    </div>
+  );
 }
 
 export default Performance;
