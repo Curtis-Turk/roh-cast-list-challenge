@@ -1,15 +1,10 @@
 import "./App.css";
-import fetchEventDetails from "./api/fetchEventDetails";
-
-fetchEventDetails("Turandot")
-  .then((data) => console.log(data))
-  .catch((error) => console.log(error));
+import Performance from "./components/Performance";
 
 function App() {
   return (
     <div className="App">
-      <h1>Cast List challenge</h1>
-      <div>{}</div>
+      <Performance production="turandot" date="10/03/2023" />
     </div>
   );
 }

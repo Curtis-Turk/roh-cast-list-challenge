@@ -3,7 +3,7 @@ const fetchEventDetails = async (event) => {
   const url = server + event;
   const response = await fetch(url);
   const data = await response.json();
-  return data;
+  return data.data;
 };
 
 export default fetchEventDetails;
