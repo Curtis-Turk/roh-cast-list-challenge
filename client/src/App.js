@@ -1,7 +1,7 @@
 import "./App.css";
 import fetchEventDetails from "./api/fetchEventDetails";
 
-fetchEventDetails("http://localhost:3001/")
+fetchEventDetails("Turandot")
   .then((data) => console.log(data))
   .catch((error) => console.log(error));
 
