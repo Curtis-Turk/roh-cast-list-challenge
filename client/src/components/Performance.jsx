@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import fetchEventDetails from "../api/fetchEventDetails";
+import Creatives from "./Creatives";
 
 function Performance({ production, date }) {
   const [performanceData, setPerformanceData] = useState({});
@@ -9,7 +10,10 @@ function Performance({ production, date }) {
     const creatives = [];
     data.included.forEach((relationship) => {
       if (relationship.type === "creatives") {
-        creatives.push(relationship.attributes.name);
+        creatives.push({
+          name: relationship.attributes.name,
+          role: relationship.attributes.role,
+        });
       }
     });
     return creatives;
@@ -46,7 +50,8 @@ function Performance({ production, date }) {
       <p>Date: {date}</p>
       <h3>{performanceData.shortDescription}</h3>
       <h2>Creatives</h2>
-      <ul>{performanceData.creatives}</ul>
+      {/* <ul>{performanceData.creatives.name}</ul> */}
+      <Creatives creativesArray={performanceData.creatives} />
       <h2>Cast</h2>
       <ul>{performanceData.cast}</ul>
     </div>
