@@ -44,12 +44,15 @@ function Performance({ production, date }) {
           creatives: getCreatives(data),
           cast: getCast(data),
         });
+        console.log(data);
       })
       .catch((error) => console.log(error));
   }, [production]);
 
   const castElementList = performanceData.cast?.map((castMember) => (
-    <li>{castMember}</li>
+    <li key={castMember}>
+      <div>{castMember}</div>
+    </li>
   ));
 
   return (

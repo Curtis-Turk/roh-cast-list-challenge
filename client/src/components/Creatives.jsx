@@ -1,14 +1,15 @@
 function Creatives({ creativesArray }) {
   const creativeElementList = creativesArray?.map((creative) => {
     return (
-      <li>
-        <div>{creative.name}</div>
-        <div>{creative.role}</div>
+      <li key={creative.name}>
+        <div>
+          {creative.name} - {creative.role}
+        </div>
       </li>
     );
   });
 
-  return <ul>{creativeElementList};</ul>;
+  return <ul>{creativeElementList}</ul>;
 }
 
 export default Creatives;

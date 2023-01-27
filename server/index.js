@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Hello World!" });
 });
 
-app.get("/Turandot", async (req, res) => {
+app.get("/turandot", async (req, res) => {
   const turandotUrl =
     "https://www.roh.org.uk/api/event-details?slug=turandot-by-andrei-serban";
   const response = await fetch(turandotUrl);
